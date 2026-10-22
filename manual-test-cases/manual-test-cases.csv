@@ -1,0 +1,13 @@
+Test Case ID,Module,Scenario,Preconditions,Steps,Test Data,Expected Result,Actual Result,Status,Priority
+TC-LOGIN-001,Login,Login with valid credentials,User is on login page,"Enter username; enter password; click Login","standard_user / secret_sauce","User is redirected to Products inventory page",,Not Run,High
+TC-LOGIN-002,Login,Login with invalid password,User is on login page,"Enter valid username; enter wrong password; click Login","standard_user / wrong_password","Helpful validation error is displayed",,Not Run,High
+TC-LOGIN-003,Login,Submit empty form,User is on login page,"Leave fields empty; click Login","blank / blank","Username required error is displayed",,Not Run,High
+TC-LOGIN-004,Login,Locked user login,User is on login page,"Enter locked_out_user and valid demo password; click Login","locked_out_user / secret_sauce","Login is blocked with an explanatory message",,Not Run,Medium
+TC-PROD-001,Products,Inventory is displayed,Logged in as standard_user,"Inspect inventory title and product cards","standard_user","Products title and product cards are visible",,Not Run,High
+TC-PROD-002,Products,Sort products by name ascending,Inventory page open,"Choose Name (A to Z)","sort=az","Products appear in ascending name order",,Not Run,Medium
+TC-PROD-003,Products,Add product to cart,Inventory page open,"Click Add to cart for Sauce Labs Backpack","Sauce Labs Backpack","Cart badge increments to 1",,Not Run,High
+TC-CART-001,Cart,Cart contains selected item,One item added,"Open cart","Sauce Labs Backpack","Selected item appears in cart",,Not Run,High
+TC-CART-002,Cart,Remove item from cart,Cart contains one item,"Click Remove","Sauce Labs Backpack","Item is removed and cart is empty",,Not Run,Medium
+TC-CHECK-001,Checkout,Checkout rejects missing first name,At checkout information page,"Leave first name blank; fill remaining fields; continue","last=Tester, zip=440001","Validation error asks for first name",,Not Run,High
+TC-CHECK-002,Checkout,Complete valid checkout,At checkout information page with item in cart,"Enter details; continue; finish","Test User / 440001","Order confirmation is shown",,Not Run,High
+TC-CHECK-003,Checkout,Checkout rejects missing postal code,At checkout information page,"Fill first and last name; leave postal code blank; continue","Test User / blank","Validation error asks for postal code",,Not Run,Medium
