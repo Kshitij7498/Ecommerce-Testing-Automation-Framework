@@ -1,9 +1,10 @@
 package tests;
 
-import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import base.BaseTest;
 import pages.InventoryPage;
 import pages.LoginPage;
 
@@ -25,7 +26,12 @@ public class ProductTests extends BaseTest {
     @Test
     public void nameAscendingSortPlacesAFirst() {
         inventory.sortBy("az");
-        Assert.assertTrue(inventory.getFirstProductName().toLowerCase().startsWith("a"));
+
+        Assert.assertEquals(
+        inventory.getFirstProductName(),
+        "Sauce Labs Backpack",
+        "Expected alphabetical sorting to place Sauce Labs Backpack first"
+     );
     }
 
     @Test

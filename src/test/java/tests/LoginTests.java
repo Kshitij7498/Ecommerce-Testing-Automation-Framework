@@ -1,16 +1,18 @@
 package tests;
 
-import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import base.BaseTest;
 import pages.LoginPage;
 
 public class LoginTests extends BaseTest {
     @Test
     public void validUserCanLogIn() {
         new LoginPage(driver).loginAs("standard_user", "secret_sauce");
-        Assert.assertEquals(driver.getCurrentUrl().replaceAll("/$", ""),
-                baseUrl.replaceAll("/$", "") + "inventory.html");
+        Assert.assertEquals(
+         driver.getCurrentUrl().replaceAll("/$", ""),
+         baseUrl.replaceAll("/$", "") + "/inventory.html");
     }
 
     @Test

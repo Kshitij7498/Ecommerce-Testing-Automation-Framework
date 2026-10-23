@@ -1,8 +1,11 @@
 package pages;
+import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class InventoryPage {
     private final WebDriver driver;
@@ -28,5 +31,11 @@ public class InventoryPage {
         return driver.findElements(cartBadge).isEmpty() ? 0 :
                 Integer.parseInt(driver.findElement(cartBadge).getText());
     }
-    public void openCart() { driver.findElement(cartLink).click(); }
+    public void openCart() {
+        driver.findElement(cartLink).click();
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.urlContains("cart.html"));
+    }
+
 }

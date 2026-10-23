@@ -1,13 +1,60 @@
+
 package pages;
+
+import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CartPage {
     private final WebDriver driver;
-    public CartPage(WebDriver driver) { this.driver = driver; }
-    public String getTitle() { return driver.findElement(By.cssSelector(".title")).getText(); }
-    public int getItemCount() { return driver.findElements(By.cssSelector(".cart_item")).size(); }
-    public void removeFirstItem() { driver.findElement(By.cssSelector(".cart_item button")).click(); }
-    public void clickCheckout() { driver.findElement(By.id("checkout")).click(); }
+    private final WebDriverWait wait;
+
+    private final By title = By.cssSelector(".title");
+    private final By cartItems = By.cssSelector(".cart_item");
+    private final By removeButton = By.cssSelector(".cart_item button");
+    private final By checkoutButton = By.id("checkout");
+
+    public CartPage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
+
+    public String getTitle() {
+        return wait.until(
+                ExpectedConditions.visibilityOfElementLocated(title)
+        ).getText();
+    }
+
+    public int getItemCount() {
+        wait.until(
+                ExpectedConditions.urlContains("/cart.html")
+        );
+
+        return wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.cssSelector(".cart_list")
+                )
+        ).findElements(cartItems).size();
+    }
+
+    public void removeFirstItem() {
+        wait.until(
+                ExpectedConditions.elementToBeClickable(removeButton)
+        ).click();
+
+        wait.until(
+                ExpectedConditions.numberOfElementsToBe(
+                        cartItems, 0
+                )
+        );
+    }
+
+    public void clickCheckout() {
+        wait.until(
+                ExpectedConditions.elementToBeClickable(checkoutButton)
+        ).click();
+    }
 }
